@@ -63,6 +63,6 @@ export class AuthService {
           }
           return (fbUser !== null);
         }
-    );
+    ));
   }
 }
