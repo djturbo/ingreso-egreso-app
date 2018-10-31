@@ -45,3 +45,18 @@ Aquí vamos a cubrir temas interesantes como:
     #Grabar un documento en Firebase
 
 Esta sección esta enfocada en manejar la parte de autenticación de nuestros usuarios, y asegurarnos que cada usuario tenga su espacio independiente en Firebase, sin contar que al final, seguiremos contando con el poder de la comunicación en tiempo real por Sockets de Firebase
+
+
+# Sección 8, Clase 85
+
+Implementar patrón Redux y NgRx
+
+Esta sección tiene por objetivo enseñar y repasar cosas como:
+
+    Crearemos nuestro primer reducer y acciones para controlar el estado de la interfaz de usuario
+    ActionReducerMap
+    Dispatch de acciones de UI
+    Acciones del Auth
+    Reducer del Auth
+
+Implementaremos las devtools y ya comenzaremos a trabajar con el patrón Redux

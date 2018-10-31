@@ -1,18 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
+
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducer';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styles: []
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
+  loading: boolean;
+  subscription: Subscription;
 
   constructor(public authService: AuthService,
-              private _router: Router) { }
+              private _router: Router,
+              private _store: Store<AppState>) { }
 
 
   saveFormData(frm: NgForm): void {
@@ -28,6 +35,15 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.subscription = this._store.select('ui')
+      .subscribe(ui => {
+        this.loading = ui.isLoading;
+      });
+  }
+
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }

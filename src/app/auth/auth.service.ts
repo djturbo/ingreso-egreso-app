@@ -3,31 +3,56 @@ import { AngularFireAuth } from '@angular/fire/auth';
 
 
 import * as fb from 'firebase';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { User } from './user.model';
 import { AngularFirestore } from '@angular/fire/firestore';
+
+import * as actions from '../shared/redux/actions';
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.reducer';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   TAG = 'AuthService :: ';
+
+  activateAction = new actions.UI.ActivateLoadingAction();
+  desactivateAction = new actions.UI.DesactivateLoadingAction();
+
+  private userSubscription: Subscription;
+
   constructor(
     private _afAuth: AngularFireAuth,
     private _router: Router,
-    private _ngFDB: AngularFirestore) {
+    private _ngFDB: AngularFirestore,
+    private _store: Store<AppState>) {
 
   }
 
   initAuthListener(): void {
     this._afAuth.authState.subscribe((fbUser: fb.UserInfo) => {
-      console.log(this.TAG, 'initAuthListener() user: ', fbUser);
+      if (fbUser) {
+        this.userSubscription = this._ngFDB.doc(`${fbUser.uid}/user`).valueChanges()
+        .subscribe( userObj => {
+          const user: User = <User>userObj;
+          console.log(this.TAG, 'initAuthListener() getting user: ', user);
+          this._store.dispatch(new actions.SetUserAction(user));
+        } );
+      } else {
+        if (this.userSubscription) {
+          this.userSubscription.unsubscribe();
+        }
+      }
     });
   }
 
   createUser( username: string, email: string, password: string): Promise<any> {
+
+    this._store.dispatch(this.activateAction);
+
     return new Promise<any>((resolve, reject) => {
         this._afAuth.auth.createUserWithEmailAndPassword(email, password)
         .then((success: any) => {
@@ -41,13 +66,27 @@ export class AuthService {
             .set( user )
             .then(() => resolve(success))
             .catch((error) => reject(error));
-
+            this._store.dispatch(this.desactivateAction);
         })
-        .catch(error => reject(error));
+        .catch(error => {
+          this._store.dispatch(this.desactivateAction);
+          reject(error);
+        });
     });
   }
-  logIn(email: string, password: string): Promise<any> {
-    return this._afAuth.auth.signInWithEmailAndPassword(email, password);
+  logIn(email: string, password: string): Promise<fb.auth.UserCredential> {
+    this._store.dispatch(this.activateAction);
+    return new Promise<fb.auth.UserCredential>( (resolve, reject) => {
+      this._afAuth.auth.signInWithEmailAndPassword(email, password)
+            .then( (success) => {
+              this._store.dispatch(this.desactivateAction);
+              resolve(success);
+            })
+            .catch( (err) => {
+              this._store.dispatch(this.desactivateAction);
+              reject(err);
+            });
+    });
   }
   logOut(): Promise<void> {
     return this._afAuth.auth.signOut();
