@@ -60,3 +60,22 @@ Esta sección tiene por objetivo enseñar y repasar cosas como:
     Reducer del Auth
 
 Implementaremos las devtools y ya comenzaremos a trabajar con el patrón Redux
+
+
+# Sección 9, Clase 94
+
+Sección de Ingreso y Egreso
+
+Aquí tendremos por objetivo construir todo lo que viene después de una autenticación válida, cosas como:
+
+    Crear modelo de Ingresos y Egresos
+    Pantallas de captura de datos
+    Servicio de Ingreso Egreso
+    Loadings
+    Acciones y Reducer de Ingresos y Egresos
+    Leer de Firebase
+    Grabar a Firebase
+    Gráficas dinámicas
+    Y otras cosas
+
+Esta sección es el corazón de nuestra aplicación, es con lo que nuestro usuario va a trabajar.
