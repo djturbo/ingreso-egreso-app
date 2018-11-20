@@ -23,6 +23,7 @@ export class AuthService {
   desactivateAction = new actions.UI.DesactivateLoadingAction();
 
   private userSubscription: Subscription;
+  private _user: User;
 
   constructor(
     private _afAuth: AngularFireAuth,
@@ -40,8 +41,10 @@ export class AuthService {
           const user: User = <User>userObj;
           console.log(this.TAG, 'initAuthListener() getting user: ', user);
           this._store.dispatch(new actions.SetUserAction(user));
+          this._user = user;
         } );
       } else {
+        this._user = null;
         if (this.userSubscription) {
           this.userSubscription.unsubscribe();
         }
@@ -89,6 +92,7 @@ export class AuthService {
     });
   }
   logOut(): Promise<void> {
+    this._store.dispatch(new actions.UnsetUserAction());
     return this._afAuth.auth.signOut();
   }
 
@@ -103,5 +107,9 @@ export class AuthService {
           return (fbUser !== null);
         }
     ));
+  }
+
+  public get user(): User {
+    return { ...this._user };
   }
 }

@@ -8,6 +8,6 @@ export class IngresoEgresoModel {
         this.description = obj.description || null;
         this.amount      = obj.amount || null;
         this.type        = obj.type || null;
-        this.uid         = obj.uid || null;
+        // this.uid         = obj.uid || null;
     }
 }

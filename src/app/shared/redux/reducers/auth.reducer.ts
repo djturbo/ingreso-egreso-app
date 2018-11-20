@@ -17,7 +17,12 @@ export function authReducer( state = initialState, action: actions.actions ): Au
                 user: {
                     ...action.user
                 }
-            }
+            };
+        break;
+        case actions.UNSET_USER:
+            state = {
+                user: undefined
+            };
         break;
     }
 

@@ -8,18 +8,25 @@
                     <thead>
                         <tr>
                             <th>Descripción</th>
-                            <th>Monto</th>
+                            <th>Cantidad</th>
                             <th>Tipo</th>
                             <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td>Descripción</td>
-                            <td>Monto</td>
-                            <td>Tipo</td>
-                            <td>acciones</td>
+                        <tr *ngFor="let item of (items | sortMovements); let idx = index;">
+                            <td>{{ item.description }}</td>
+                            <td>{{ item.amount | currency }}</td>
+                            <td>
+                                <span [ngClass]="{'text-success': item.type === 'ingreso', 'text-danger': item.type === 'egreso'}">
+                                    {{ item.type }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <button class="btn btn-outline-danger" (click)="deleteItem(item)"><i class="fa fa-trash"></i>Borrar</button>
+                            </td>
                         </tr>
                     </tbody>
 

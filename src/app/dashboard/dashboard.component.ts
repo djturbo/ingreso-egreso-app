@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MovementService } from '../ingreso-egreso/movement.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _movementService: MovementService) { }
 
   ngOnInit() {
+    this._movementService.initMovementListener();
   }
 
 }
