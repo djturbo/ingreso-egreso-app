@@ -30,7 +30,7 @@ export class EstadisticaComponent implements OnInit {
 
   /** CHART EVENT LISTENERS */
   // events
-  public chartClicked(e: any):void {
+  public chartClicked(e: any): void {
     console.log(e);
   }
 

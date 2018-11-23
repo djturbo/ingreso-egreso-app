@@ -79,3 +79,22 @@ Aquí tendremos por objetivo construir todo lo que viene después de una autenti
     Y otras cosas
 
 Esta sección es el corazón de nuestra aplicación, es con lo que nuestro usuario va a trabajar.
+
+# Sección 10, Clase 113
+
+LazyLoad y Módulos de Angular
+
+Esta sección será un excelente reforzamiento al tema de los módulos de Angular y el LazyLoad de Angular, realmente de Redux, lo único que me interesa explicar el la característica forFeature del StoreModule, pero para implementarla y explicarla, necesito un ejemplo real, por lo que lo vamos a crear aquí.
+
+Temas de la sección:
+
+    Módulos de Angular
+        Módulo Auth
+        Módulo Share
+        Módulo de Ingresos y Egresos
+    Dashboard Routing Module
+    Implementar LazyLoad en Angular
+    Guard
+        Can Activate
+        Can Load
+    Implementar el StoreModule.forFeature()
