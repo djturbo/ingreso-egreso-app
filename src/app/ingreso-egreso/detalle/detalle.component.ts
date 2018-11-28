@@ -5,6 +5,7 @@ import { AppState } from 'src/app/app.reducer';
 import { IngresoEgresoModel } from '../ingreso-egreso.model';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
+import { MOVEMENT } from '../../shared/redux/reducers/movement.reducer';
 
 @Component({
   selector: 'app-detalle',
@@ -16,7 +17,7 @@ export class DetalleComponent implements OnInit, OnDestroy {
   items: IngresoEgresoModel[];
   subscription: Subscription;
 
-  constructor( private _store: Store<AppState>,
+  constructor( private _store: Store<MOVEMENT.AppStateMovement>,
                private _movementService: MovementService ) { }
 
   deleteItem(item: IngresoEgresoModel) {

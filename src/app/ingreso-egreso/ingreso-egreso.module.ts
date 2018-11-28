@@ -11,6 +11,9 @@ import { SortMovementsPipe } from './sort-movements.pipe';
 import { SharedModule } from '../shared/shared.module';
 
 import { DashboardRoutingModule } from '../dashboard/dashboard-routing.module';
+import { StoreModule } from '@ngrx/store';
+import { MOVEMENT } from '../shared/redux/reducers';
+
 
 @NgModule({
   imports: [
@@ -18,7 +21,8 @@ import { DashboardRoutingModule } from '../dashboard/dashboard-routing.module';
     ReactiveFormsModule,
     ChartsModule,
     SharedModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    StoreModule.forFeature('movement', MOVEMENT.movementReducer)
   ],
   declarations: [
     SortMovementsPipe,

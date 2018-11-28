@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import * as actions from '../actions/';
 import { IngresoEgresoModel } from '../../../ingreso-egreso/ingreso-egreso.model';
+import { AppState } from 'src/app/app.reducer';
 
 export namespace MOVEMENT {
     export interface MovementState {
@@ -9,6 +10,10 @@ export namespace MOVEMENT {
 
     const initialState: MovementState = {
         items: []
+    }
+
+    export interface AppStateMovement extends AppState {
+        movement: MovementState;
     }
 
     export function movementReducer(state = initialState, action: actions.MOVEMENT.actions) {

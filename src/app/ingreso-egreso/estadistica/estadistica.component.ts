@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/app.reducer';
 import { Subscription } from 'rxjs';
 import { IngresoEgresoModel } from '../ingreso-egreso.model';
+import { MOVEMENT } from '../../shared/redux/reducers/movement.reducer';
 
 @Component({
   selector: 'app-estadistica',
@@ -25,7 +25,7 @@ export class EstadisticaComponent implements OnInit {
   public doughnutChartData: number[];
   public doughnutChartType = 'doughnut';
 
-  constructor( private _store: Store<AppState>  ) { }
+  constructor( private _store: Store<MOVEMENT.AppStateMovement>  ) { }
 
 
   /** CHART EVENT LISTENERS */
